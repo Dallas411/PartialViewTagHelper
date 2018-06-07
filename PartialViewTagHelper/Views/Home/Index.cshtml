@@ -1,4 +1,5 @@
-﻿@{
+﻿@model IEnumerable<Product>
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -67,22 +68,21 @@
 
 <div class="row">
     <div class="col-md-3">
+        <h2>Products</h2>
+        <ul>
+            @foreach (var p in Model)
+            {
+                <li>
+                    @p.Name @p.Price
+                </li>
+            }
+        </ul>
+    </div>
+    <div class="col-md-3">
         @Html.Partial("_Partial1")
     </div>
     <div class="col-md-3">
-        <partialView name="_Partial2"/>
-    </div>
-    <div class="col-md-3">
-        <h2>Overview</h2>
-        <ul>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkId=518008">Conceptual overview of what is ASP.NET Core</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkId=699320">Fundamentals of ASP.NET Core such as Startup and middleware.</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkId=398602">Working with Data</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkId=398603">Security</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkID=699321">Client side development</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkID=699322">Develop on different platforms</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkID=699323">Read more on the documentation site</a></li>
-        </ul>
+        <partialView name="_Partial2" model="@Model.Select(x=> $"{x.Name} {x.Price.ToString()}")" />
     </div>
     <div class="col-md-3">
         <h2>Run &amp; Deploy</h2>
